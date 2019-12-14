@@ -38,6 +38,10 @@
 			"error",
 			"single"
 		],
+		"eol-last": [
+			"error",
+			"always"
+		],
 		"no-spaced-func": "error",
 		"prefer-const": "warn",
 		"space-before-blocks": [

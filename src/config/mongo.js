@@ -1,5 +1,3 @@
-
-
 const {
     MongoClient,
     Logger
@@ -37,7 +35,7 @@ module.exports.connect = async () => {
             client
         };
     }
- catch (error) {
+    catch (error) {
         console.log('Error connecting to MongoDb');
         process.exit(0);
     }
