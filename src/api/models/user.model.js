@@ -197,7 +197,7 @@ class User {
             const hashedPassword = await hashPassword(data.password);
             const updatedUser = await this.collection.updateOne(
                 {
-                    "email": {
+                    'email': {
                         $eq: email
                     }
                 },

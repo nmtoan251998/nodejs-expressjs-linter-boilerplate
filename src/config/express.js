@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+// logger for APIs accesses
 app.use(morgan(log));
 
 app.use(Router);
