@@ -4,7 +4,7 @@ const dotenvSafe = require('dotenv-safe');
 
 dotenvSafe.config({
     path: path.join(__dirname, '../../.env'),
-    sample: path.join(__dirname, '../../.env.example'),
+    example: path.join(__dirname, '../../.env.example'),
 });
 
 module.exports = {
