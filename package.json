@@ -6,6 +6,7 @@
   "scripts": {
     "linter:watch": "node node_modules/eslint-watch/bin/esw -w --fix -c ./.eslintrc.json",
     "dev:server": "concurrently -p [{name}] -n \"Server,Linter\" -c \"bgCyan.bold,bgRed.bold\" \"nodemon src/server.js\" \"npm run linter:watch\"",
+    "dev:server-docker": "sudo docker-compose up",
     "apidoc": "apidoc -i src/ -o docs/"
   },
   "keywords": [],

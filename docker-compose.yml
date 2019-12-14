@@ -1,0 +1,20 @@
+version: "2"
+services:
+    backend:
+        container_name: boilerplate_server
+        build: .
+        restart: always
+        ports:
+            - "5000:5000"
+        environment:
+            - DB_URI=mongodb://mongo:27017/fullstack-reactjs-nodejs-authentication
+        links:
+            - mongo
+    mongo:
+        container_name: boilerplate_db
+        image: mongo
+        ports:
+            - "27017:27017"
+        
+
+

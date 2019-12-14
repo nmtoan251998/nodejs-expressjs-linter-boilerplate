@@ -26,7 +26,8 @@ if (env === 'development') {
 
 module.exports.connect = async () => {
     try {
-        const client = await MongoClient.connect(uri + name, options);
+        const client = await MongoClient.connect(uri, options);
+        console.log('Database connection established');
 
         const db = client.db(name);
 
@@ -36,6 +37,7 @@ module.exports.connect = async () => {
         };
     }
     catch (error) {
+        console.log(error);
         console.log('Error connecting to MongoDb');
         process.exit(0);
     }

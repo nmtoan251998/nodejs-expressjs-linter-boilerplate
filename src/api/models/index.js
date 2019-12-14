@@ -6,8 +6,9 @@ const User = require('./user.model');
 let db, client;
 
 (async function extractDatabaseInstances() {
-    db = (await mongo.connect()).db;
-    client = (await mongo.connect()).client;
+    connection = await mongo.connect();
+    client = connection.client;
+    db = connection.db;
 })();
 
 class Model {
