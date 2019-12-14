@@ -4,6 +4,7 @@
 - *Eslint* for linter
 - *Docker* for containerlization
 - *MongoDb* for database
+- *apidoc* for APIs documenting
 
 ## Requisites
 - OS: Linux (prefered), Windows, MacOS
