@@ -1,4 +1,14 @@
-# Nodejs-Expressjs app boilerplate with eslint configuration
+# Backend APIs Nodejs App boilerplate
+
+## Features
+- *Eslint* for linter
+- *Docker* for containerlization
+- *MongoDb* for database
+
+## Requisites
+- OS: Linux (prefered), Windows, MacOS
+- Docker
+- NodeJs: v12.13.1 (prefered using nvm)
 
 ## Usage
 Clone my repo
@@ -18,7 +28,16 @@ Linter
 npm run linter:watch
 ```
 
-Start server development
+Start server development in your local machine
 ```
 npm run dev:server
 ```
+
+Start server development in docker container
+```
+npm run dev:server-docker
+```
+**Warning:** Remember to turn off all services running on used ports.
+1. App server is *5000*
+2. MongoDb server is *27017*
+
