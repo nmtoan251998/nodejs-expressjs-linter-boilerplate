@@ -42,3 +42,7 @@ npm run dev:server-docker
 1. App server is *5000*
 2. MongoDb server is *27017*
 
+Generate APIs documentation
+```
+npm run apidoc
+```
