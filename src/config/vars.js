@@ -1,6 +1,11 @@
 const path = require('path');
 const dotenv = require('dotenv-safe');
 
+/**
+ * The below configuration with dotenv-safe will ensure that
+ * all variables defined in .env.example
+ * are also defined in .env
+ */
 dotenv.config({
     path: path.join(__dirname, '../../.env'),
     example: path.join(__dirname, '../../.env.example'),
