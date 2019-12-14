@@ -1,9 +1,11 @@
 const path = require('path');
-const dotenv = require('dotenv');
+// const dotenv = require('dotenv');
+const dotenvSafe = require('dotenv-safe');
 
-dotenv.config({
-    path: path.join(__dirname, '../../.env')
-})
+dotenvSafe.config({
+    path: path.join(__dirname, '../../.env'),
+    sample: path.join(__dirname, '../../.env.example'),
+});
 
 module.exports = {
     env: process.env.NODE_ENV || 'development',
@@ -17,4 +19,4 @@ module.exports = {
         value: process.env.SECRET_OR_PRIVATE_KEY,
         expiration: process.env.SECRET_OR_PRIVATE_KEY_EXPIRATION
     }
-}
+};

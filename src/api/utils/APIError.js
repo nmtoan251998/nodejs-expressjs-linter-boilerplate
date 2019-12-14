@@ -1,7 +1,9 @@
 const httpStatus = require('http-status');
 
 class ExtendableError extends Error {
-    constructor({ message, errors, status, isPublic, stack }) {
+    constructor({
+ message, errors, status, isPublic, stack 
+}) {
         super(message);
 
         // Ensure the name of this error is the same as the class name

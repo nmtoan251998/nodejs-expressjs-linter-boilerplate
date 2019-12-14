@@ -1,13 +1,13 @@
 const httpStatus = require('http-status');
 
 const Model = require('../models');
-const APIError = require('../utils/APIError');
 
 module.exports.getUsers = async (req, res, next) => {
     try {
         const {
-            User
-        } = new Model(req.database);
+            User,
+            closeDbConnection
+        } = new Model();
 
         // find all users
         const users = await User.getAllUsers();
@@ -20,7 +20,7 @@ module.exports.getUsers = async (req, res, next) => {
         }
 
         // close database collection connection
-        req.database.client.close();
+        closeDbConnection();
 
         return res.status(httpStatus.OK)
             .json({
@@ -29,21 +29,23 @@ module.exports.getUsers = async (req, res, next) => {
                 users
             })
             .end();
-    } catch (error) {
+    }
+    catch (error) {
         next(error);
     }
-}
+};
 
 module.exports.deleteUsers = async (req, res, next) => {
     try {
         const {
-            User
-        } = new Model(req.database);
-        
+            User,
+            closeDbConnection
+        } = new Model();
+
         const deletedResult = await User.deleteAllUsers();
 
         // close database collection connection
-        req.database.client.close();
+        closeDbConnection();
 
         res.status(httpStatus.OK)
             .json({
@@ -53,16 +55,18 @@ module.exports.deleteUsers = async (req, res, next) => {
             })
             .end();
 
-    } catch (error) {
+    }
+    catch (error) {
         next(error);
     }
-}
+};
 
 module.exports.updateUserByEmail = async (req, res, next) => {
     try {
         const {
-            User
-        } = new Model(req.database);
+            User,
+            closeDbConnection
+        } = new Model();
 
         /**
          * Check if whether user email is existed
@@ -81,7 +85,7 @@ module.exports.updateUserByEmail = async (req, res, next) => {
         const updateResult = await User.updateUserByEmail(req.params.email, req.body);
 
         // close database collection connection
-        req.database.client.close();
+        closeDbConnection();
 
         return res.status(httpStatus.OK)
             .json({
@@ -90,7 +94,8 @@ module.exports.updateUserByEmail = async (req, res, next) => {
                 updateResult
             })
             .end();
-    } catch (error) {
+    }
+    catch (error) {
         next(error);
     }
-}
+};

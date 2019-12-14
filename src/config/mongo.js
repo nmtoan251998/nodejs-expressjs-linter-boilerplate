@@ -1,3 +1,5 @@
+
+
 const {
     MongoClient,
     Logger
@@ -16,7 +18,7 @@ const {
 
 const options = {
     useUnifiedTopology: true
-}
+};
 
 if (env === 'development') {
     // Set debug level
@@ -25,17 +27,18 @@ if (env === 'development') {
 }
 
 module.exports.connect = async () => {
-    try {        
+    try {
         const client = await MongoClient.connect(uri + name, options);
 
         const db = client.db(name);
-    
-        return { 
+
+        return {
             db,
             client
         };
-    } catch (error) {
+    }
+ catch (error) {
         console.log(`Error connecting to MongoDb`);
         process.exit(0);
     }
-}
+};

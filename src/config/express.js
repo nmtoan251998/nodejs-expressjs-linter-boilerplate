@@ -8,17 +8,13 @@ const {
 } = require('./vars');
 const Router = require('../api/routes/index.routes');
 const error = require('../api/middlewares/error');
-const { 
-    attachDb
-} = require('../api/middlewares/attachDb');
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 app.use(morgan(log));
-
-// attach mongodb instance to any incoming request
-app.use(attachDb);
 
 app.use(Router);
 

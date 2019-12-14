@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:server": "nodemon src/server.js",
+    "linter:watch": "node node_modules/eslint-watch/bin/esw -w --fix -c ./.eslintrc.json",
+    "dev:server": "concurrently -p [{name}] -n \"Server,Linter\" -c \"bgCyan.bold,bgRed.bold\" \"nodemon src/server.js\" \"npm run linter:watch\"",
     "apidoc": "apidoc -i src/ -o docs/"
   },
   "keywords": [],
@@ -16,14 +17,22 @@
     "body-parser": "^1.19.0",
     "date-fns": "^2.8.1",
     "dotenv": "^8.2.0",
+    "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
     "http-status": "^1.4.2",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.3.5",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "prettier": "^1.19.1"
   },
   "devDependencies": {
     "apidoc": "^0.19.0",
+    "babel-eslint": "^10.0.3",
+    "concurrently": "^5.0.1",
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-watch": "^6.0.1",
     "nodemon": "^2.0.1"
   }
 }

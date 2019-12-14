@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 const {
     ObjectId
 } = require('mongodb');
-const { 
-    formatISO 
+const {
+    formatISO
 } = require('date-fns');
 
 const APIError = require('../utils/APIError');
@@ -18,32 +18,33 @@ const {
 class User {
     /**
      * Create new User instance
-     * @param {object} db MongoClient instance
-     * @param {object} client MongoClient.connect instance
+     * @param {object} collection MongoDb users collection instance
      */
-    constructor({ db }) {
-        this.collection = db.collection('users');
+    constructor(collection) {
+        this.collection = collection;
 
         /**
-         * ====================
-         * = Instance methods =
-         * ====================
          * 
-         * Creation:
-         * 1. createUser
+         * Creation
+         * @method createUser Create new user
          * 
          *  
          * Modification:
-         * 1. updateUserByEmail
+         * @method updateUserByEmail Update user by user's email
          * 
          * 
          * Query:
-         * 1. getAllUsers
-         * 2. getUserByEmail
+         * @method getAllUsers Get all users
+         * @method getUserByEmail Get user account by user's email
          * 
          * 
          * Deletion:
-         * 1. deleteAllUsers
+         * @method deleteAllUsers Delete all users
+         * 
+         * Ultilities
+         * @method generateAccessToken Generate new Json web token
+         * @method comparePassword Compare 2 password
+         * @method isValidId Check if Id is instance of MongoDb
          */
 
         this.generateAccessToken = generateAccessToken;
@@ -72,11 +73,13 @@ class User {
      * @return {string} user._id MongoDb ObjectId
      * @return {Date} user.createdAt
      */
-    createUser = async function({ email, username, password }) {
+    async createUser({ email, username, password }) {
         try {
+            // create a hook to hash user's password with bcrypt before saving to database
             const hashedPassword = await hashPassword(password);
+
             const newUser = await this.collection
-                .insertOne({ 
+                .insertOne({
                     email,
                     username,
                     password: hashedPassword,
@@ -85,20 +88,20 @@ class User {
 
             return newUser.ops[0];
         } catch (error) {
-            throw new APIError({                
+            throw new APIError({
                 message: 'Error creating new user',
                 status: httpStatus.INTERNAL_SERVER_ERROR,
                 stack: error.stack,
                 isPublic: false,
-                errors:	[
+                errors: [
                     {
                         field: 'createUser',
                         location: 'Users Collection',
                         message: '',
                     }
                 ]
-            })
-        }   
+            });
+        }
     }
 
     /**
@@ -112,7 +115,7 @@ class User {
      * Get all users
      * @return {object[]} All users
      */
-    getAllUsers = async function() {
+    async getAllUsers() {
         try {
             const users = await this.collection.find().toArray();
 
@@ -123,28 +126,28 @@ class User {
                 status: httpStatus.INTERNAL_SERVER_ERROR,
                 stack: error.stack,
                 isPublic: false,
-                errors:	[
+                errors: [
                     {
                         field: 'getAllUsers',
                         location: 'Users Collection',
                         message: '',
                     }
                 ]
-            })
+            });
         }
     }
 
     /**
      * Find user by user email
      * @param {string} email
-     * @return {null|object}
+     * @return {null|object|APIError}
      */
-    getUserByEmail = async function(email) {
+    async getUserByEmail(email) {
         try {
             const user = await this.collection.find(
                 {
                     'email': { $eq: email },
-                }, 
+                },
                 {
                     limit: 1,
                     projection: {
@@ -159,21 +162,21 @@ class User {
                 return user;
             }
 
-            return {...user};
+            return { ...user };
         } catch (error) {
             throw new APIError({
                 message: 'Error getting user by user email',
                 status: httpStatus.INTERNAL_SERVER_ERROR,
                 stack: error.stack,
                 isPublic: false,
-                errors:	 [
+                errors: [
                     {
                         field: 'getUserByEmail',
                         location: 'Users Collection',
                         message: '',
                     }
                 ]
-            })
+            });
         }
     }
 
@@ -189,7 +192,7 @@ class User {
      * @param {string} email User email
      * @return {number} Number of updated users
      */
-    updateUserByEmail = async function(email, data) {
+    async updateUserByEmail(email, data) {
         try {
             const hashedPassword = await hashPassword(data.password);
             const updatedUser = await this.collection.updateOne(
@@ -203,9 +206,9 @@ class User {
                         email: data.email,
                         password: hashedPassword,
                         updatedAt: formatISO(
-                            new Date(), 
-                            { 
-                                format: 'basic' 
+                            new Date(),
+                            {
+                                format: 'basic'
                             }
                         )
                     }
@@ -219,14 +222,14 @@ class User {
                 status: httpStatus.INTERNAL_SERVER_ERROR,
                 stack: error.stack,
                 isPublic: false,
-                errors:	[
+                errors: [
                     {
                         field: 'updateUserByEmail',
                         location: 'Users Collection',
                         message: '',
                     }
                 ]
-            })
+            });
         }
     }
 
@@ -242,7 +245,7 @@ class User {
      * Delete all users
      * @return {number} Number of deleted users
      */
-    deleteAllUsers = async function() {
+    async deleteAllUsers() {
         try {
             const deletedCounter = await this.collection.deleteMany({});
 
@@ -253,14 +256,14 @@ class User {
                 status: httpStatus.INTERNAL_SERVER_ERROR,
                 stack: error.stack,
                 isPublic: false,
-                errors:	[
+                errors: [
                     {
                         field: 'deleteAllUsers',
                         location: 'Users Collection',
                         message: '',
                     }
                 ]
-            })
+            });
         }
     }
 
@@ -286,11 +289,11 @@ async function generateAccessToken(payload) {
         const token = await jwt.sign(
             {
                 payload: payload,
-                exp: Math.floor(Date.now()/1000 + parseInt(secretOrPrivateKey.expiration)) // token expire in 10h
+                exp: Math.floor(Date.now() / 1000 + parseInt(secretOrPrivateKey.expiration)) // token expire in 10h
             },
             secretOrPrivateKey.value
-        )
-    
+        );
+
         return token;
     } catch (error) {
         throw new APIError({
@@ -298,8 +301,8 @@ async function generateAccessToken(payload) {
             status: httpStatus.INTERNAL_SERVER_ERROR,
             stack: error.stack,
             isPublic: false
-        })
-    }    
+        });
+    }
 }
 
 /**
@@ -322,7 +325,7 @@ async function hashPassword(password) {
             status: httpStatus.INTERNAL_SERVER_ERROR,
             stack: error.stack,
             isPublic: false
-        })
+        });
     }
 }
 
@@ -331,13 +334,13 @@ async function hashPassword(password) {
  * @param {ObjectId} id 
  * @return {boolean}
  */
-isValidId = function(id) {
+isValidId = function (id) {
     if (ObjectId.isValid(id)) {
         return true;
     }
 
     return false;
-}
+};
 
 /**
  * Compare password
@@ -345,7 +348,7 @@ isValidId = function(id) {
  * @param {string} hashedPassword
  * @return {boolean}
  */
-comparePassword = async function(candidatePassword, hashedPassword) {
+comparePassword = async function (candidatePassword, hashedPassword) {
     try {
         return await bcrypt.compare(candidatePassword, hashedPassword);
     } catch (error) {
@@ -354,8 +357,8 @@ comparePassword = async function(candidatePassword, hashedPassword) {
             status: httpStatus.INTERNAL_SERVER_ERROR,
             stack: error.stack,
             isPublic: false,
-        })
-    }    
-}
+        });
+    }
+};
 
 module.exports = User;

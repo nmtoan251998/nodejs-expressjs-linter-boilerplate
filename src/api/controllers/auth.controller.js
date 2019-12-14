@@ -1,25 +1,26 @@
 const httpStatus = require('http-status');
 
 const Model = require('../models');
-const APIError = require('../utils/APIError');
 
 module.exports.register = async (req, res, next) => {
     try {
-        const { 
-            User            
-        } = new Model(req.database);
+        const {
+            User,
+            closeDbConnection
+        } = new Model();
 
         const isUserExist = await User.getUserByEmail(req.body.email);
         if (isUserExist) {
-            throw new APIError({
-                message: 'This email is already taken',
-                status: httpStatus.CONFLICT,
-                isPublic: false,
-            })
+            return res.status(httpStatus.CONFLICT)
+                .json({
+                    code: httpStatus.CONFLICT,
+                    message: 'This email has already been taken'
+                })
+                .end();
         }
 
         const token = await User.generateAccessToken(req.body.email);
-        
+
         const newUser = await User.createUser({
             email: req.body.email,
             username: req.body.username,
@@ -27,25 +28,27 @@ module.exports.register = async (req, res, next) => {
         });
 
         // close database collection connection
-        req.database.client.close();
+        closeDbConnection();
 
-        res.status(httpStatus.CREATED)
+        res.status(httpStatus.CREATED);
         res.json({
             code: httpStatus.CREATED,
             message: 'Created new user data',
             user: newUser,
             token
         });
-    } catch (error) {
+    }
+    catch (error) {
         next(error);
     }
-}
+};
 
 module.exports.login = async (req, res, next) => {
     try {
-        const { 
-            User            
-        } = new Model(req.database);
+        const {
+            User,
+            closeDbConnection
+        } = new Model();
 
         const user = await User.getUserByEmail(req.body.email);
         if (!user) {
@@ -69,6 +72,9 @@ module.exports.login = async (req, res, next) => {
 
         const token = await User.generateAccessToken(req.body.email);
 
+        // close db connection
+        closeDbConnection();
+
         return res.status(httpStatus.OK)
             .json({
                 message: 'Successfully log in',
@@ -77,7 +83,8 @@ module.exports.login = async (req, res, next) => {
                 token
             })
             .end();
-    } catch (error) {
-        next (error);
     }
-}
+    catch (error) {
+        next(error);
+    }
+};

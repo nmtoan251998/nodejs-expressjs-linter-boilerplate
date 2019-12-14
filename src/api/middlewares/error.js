@@ -9,53 +9,66 @@ const {
  * Handle errors and send them only in development
  */
 const handler = (error, req, res, next) => {
-    const response = {
-        code: error.status,
-        message: error.message || httpStatus[error.status],
-        errors: error.errors,
-        stack: error.stack
-    }
+    try {
+        const response = {
+            code: error.status,
+            message: error.message || httpStatus[error.status],
+            errors: error.errors,
+            stack: error.stack
+        };
 
-    if (env !== 'development') {
-        delete response.stack;
-        delete response.errors;
-    } else {
-        console.log(error);
-    }
+        if (env !== 'development') {
+            delete response.stack;
+            delete response.errors;
+        }
+        else {
+            console.log(error);
+        }
 
-    res.status(error.status);
-    res.json(response);
-    res.end();
-}
+        res.status(error.status);
+        res.json(response);
+        res.end();
+    } catch (error) {
+        next();
+    }
+};
 
 const converter = (error, req, res, next) => {
-    let convertedError = error;
+    try {
+        let convertedError = error;
 
-    if (!(error instanceof APIError)) {
-        convertedError = new APIError({
-            message: error.message,
-            status: error.status,
-            stack: error.stack,
-        })
+        if (!(error instanceof APIError)) {
+            convertedError = new APIError({
+                message: error.message,
+                status: error.status,
+                stack: error.stack,
+            });
+        }
+
+        return handler(convertedError, req, res);
+    } catch (error) {
+        next();
     }
-
-    return handler(convertedError, req, res);
-}
+};
 
 /**
  * Create an instance of 404 Not Found error
  */
 const notFound = (req, res, next) => {
-    const error = new APIError({
-        message: 'Not Found',
-        status: httpStatus.NOT_FOUND 
-    })
+    try {
+        const error = new APIError({
+            message: 'Not Found',
+            status: httpStatus.NOT_FOUND
+        });
 
-    return handler(error, req, res);
-}
+        return handler(error, req, res);
+    } catch (error) {
+        next();
+    }
+};
 
 module.exports = {
     handler: handler,
     notFound: notFound,
     converter: converter
-}
+};

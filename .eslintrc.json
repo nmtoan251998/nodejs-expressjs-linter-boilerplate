@@ -1,0 +1,49 @@
+{
+	"env": {
+		"browser": true,
+		"es6": true,
+		"commonjs": true,
+		"node": true
+	},
+	"extends": [
+		"prettier"
+	],
+	"plugins": [
+		"prettier"
+	],
+	"globals": {
+		"Atomics": "readonly",
+		"SharedArrayBuffer": "readonly"
+	},
+	"parser": "babel-eslint",
+	"parserOptions": {
+		"ecmaVersion": 8
+	},
+	"rules": {
+		"no-unused-vars": "error",
+		"no-extra-semi": "error",
+		"require-await": "error",
+		"no-empty": "error",
+		"no-sparse-arrays": "error",
+		"no-unreachable": "error",
+		"no-unexpected-multiline": "error",
+		"curly": "error",
+		"no-const-assign": "error",
+		"no-duplicate-imports": "error",
+		"semi": [
+			"error",
+			"always"
+		],
+		"no-spaced-func": "error",
+		"prefer-const": "warn",
+		"space-before-blocks": [
+			"warn",
+			"always"
+		],
+		"eqeqeq": "warn",
+		"rest-spread-spacing": [
+			"warn",
+			"never"
+		]
+	}
+}
