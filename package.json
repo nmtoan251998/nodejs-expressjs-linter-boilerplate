@@ -1,17 +1,27 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "backend-apis-nodejs-app-boilerplate",
+  "version": "0.1.0",
+  "description": "Backend APIs Nodejs App boilerplate",
+  "main": "src/index.js",
   "scripts": {
     "linter:watch": "node node_modules/eslint-watch/bin/esw -w --fix -c ./.eslintrc.json",
-    "dev:server": "concurrently -p [{name}] -n \"Server,Linter\" -c \"bgCyan.bold,bgRed.bold\" \"nodemon src/server.js\" \"npm run linter:watch\"",
+    "dev:server": "concurrently -p [{name}] -n \"Server,Linter\" -c \"bgCyan.bold,bgRed.bold\" \"nodemon src/index.js\" \"npm run linter:watch\"",
     "dev:server-docker": "sudo docker-compose up",
     "apidoc": "apidoc -i src/ -o docs/"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "eslint",
+    "prettier",
+    "docker",
+    "mongodb",
+    "boilerplate",
+    "api",
+    "apidoc"
+  ],
+  "author": "noat",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^3.0.7",
     "bluebird": "^3.7.2",
