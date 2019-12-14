@@ -22,14 +22,14 @@
 	"rules": {
 		"no-unused-vars": "error",
 		"no-extra-semi": "error",
-		"require-await": "error",
 		"no-empty": "error",
 		"no-sparse-arrays": "error",
 		"no-unreachable": "error",
 		"no-unexpected-multiline": "error",
-		"curly": "error",
 		"no-const-assign": "error",
 		"no-duplicate-imports": "error",
+		"curly": "error",
+		"require-await": "error",
 		"semi": [
 			"error",
 			"always"
@@ -44,11 +44,11 @@
 		],
 		"no-spaced-func": "error",
 		"prefer-const": "warn",
+		"eqeqeq": "warn",
 		"space-before-blocks": [
 			"warn",
 			"always"
 		],
-		"eqeqeq": "warn",
 		"rest-spread-spacing": [
 			"warn",
 			"never"
