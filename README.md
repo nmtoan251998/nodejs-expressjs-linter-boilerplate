@@ -31,12 +31,12 @@ npm run linter:watch
 
 Start server development in your local machine
 ```
-npm run dev:server
+npm start
 ```
 
 Start server development in docker container
 ```
-npm run dev:server-docker
+npm run start-docker
 ```
 **Warning:** Remember to turn off all services running on used ports.
 1. App server is *5000*

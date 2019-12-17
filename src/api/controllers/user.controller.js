@@ -14,6 +14,7 @@ module.exports.getUsers = async (req, res, next) => {
         if (!users.length) {
             return res.status(httpStatus.NOT_FOUND)
                 .json({
+                    code: httpStatus.NOT_FOUND,
                     message: 'No users found'
                 })
                 .end();

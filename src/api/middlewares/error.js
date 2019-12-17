@@ -1,3 +1,5 @@
+/* eslint no-console: 0 */  // --> TURN OFF ESLINT RULE FOR LOGGING
+
 const httpStatus = require('http-status');
 
 const APIError = require('../utils/APIError');

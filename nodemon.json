@@ -7,5 +7,6 @@
     "execMap": {
         "rb": "ruby",
         "pde": "processing --sketch={{pwd}} --run"
-    }
+    },
+    "delay": "2500"
 }

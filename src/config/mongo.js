@@ -1,3 +1,5 @@
+/* eslint no-console: 0 */  // --> TURN OFF ESLINT RULE FOR LOGGING
+
 const {
     MongoClient,
     Logger
@@ -37,7 +39,6 @@ module.exports.connect = async () => {
         };
     }
     catch (error) {
-        console.log(error);
         console.log('Error connecting to MongoDb');
         process.exit(0);
     }

@@ -7,6 +7,7 @@ const dotenv = require('dotenv-safe');
  * are also defined in .env
  */
 dotenv.config({
+    allowEmptyValues: true,
     path: path.join(__dirname, '../../.env'),
     example: path.join(__dirname, '../../.env.example'),
 });

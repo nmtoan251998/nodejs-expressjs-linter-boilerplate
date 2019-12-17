@@ -1,3 +1,5 @@
+/* eslint no-console: 0 */  // --> TURN OFF ESLINT RULE FOR LOGGING
+
 const {
     app
 } = require('./config/express');
