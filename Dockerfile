@@ -2,12 +2,13 @@ FROM node:lts-slim
 
 EXPOSE 5000
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+ARG NODE_ENV
+ENV NODE_ENV $NODE_ENV
 
-COPY package.json /usr/src/app/
+RUN mkdir /app
+WORKDIR /app
+COPY package*.json /app/
 RUN npm install
-
-COPY . /usr/src/app
+COPY . /app
 
 CMD ["npm", "start"]

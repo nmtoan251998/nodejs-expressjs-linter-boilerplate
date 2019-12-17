@@ -1,5 +1,18 @@
+# documents
 docs
 
+# node modules
 node_modules
 
+# environment files
 .env
+
+# cache file
+.cache
+
+# logging
+*.log
+logs/
+
+# test
+.nyc

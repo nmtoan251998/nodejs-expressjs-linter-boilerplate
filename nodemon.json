@@ -1,5 +1,6 @@
 {
     "verbose": true,
+    "legacyWatch": true,
     "ignore": [
         "./src/tests/*",
         "./docs/"

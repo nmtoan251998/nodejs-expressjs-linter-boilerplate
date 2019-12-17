@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "linter:watch": "node node_modules/eslint-watch/bin/esw -w --fix -c ./.eslintrc.json",
-    "dev:server": "nodemon src/index.js",
+    "dev:server": "nodemon ./src/index.js",
     "start": "concurrently -p [{name}] -n \"Server,Linter\" -c \"bgCyan.bold,bgRed.bold\" \"npm run dev:server\" \"npm run linter:watch\"",
     "start-docker": "sudo docker-compose up",
     "apidoc": "apidoc -i src/ -o docs/"
