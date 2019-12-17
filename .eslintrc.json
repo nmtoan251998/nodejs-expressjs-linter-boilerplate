@@ -43,6 +43,7 @@
 			"always"
 		],
 		"no-spaced-func": "error",
+		"no-console": "warn",
 		"prefer-const": "warn",
 		"eqeqeq": "warn",
 		"space-before-blocks": [
