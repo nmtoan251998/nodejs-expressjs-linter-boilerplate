@@ -24,10 +24,11 @@ const {
 *     }
 *
 * @apiSuccess (Success 200) {Object} users User data
-* @apiSuccess (Success 200) {String} users.email User email
-* @apiSuccess (Success 200) {String} users.password User password
-* @apiSuccess (Success 200) {String} users.username User name
-* @apiSuccess (Success 200) {String} token Access token
+* @apiSuccess (Success 200) {String} users.email="hello" User email
+* @apiSuccess (Success 200) {String{10}} users.password User password
+* @apiSuccess (Success 200) {String="toan"} users.username User name
+* @apiSuccess (Success 200) {String} users.username.nested User name
+* @apiSuccess (Success 200) {String} [token] Access token
 * @apiSuccess (Success 200) {String} message Successful response messsage
 * @apiSuccess (Success 200) {Number} code Successful response code
 *

@@ -13,9 +13,7 @@ let db, client;
 
 class Model {
     constructor() {
-        this.userCollection = db.collection('users');
-
-        this.User = new User(this.userCollection);
+        this.User = new User(db);
     }
 
     closeDbConnection() {

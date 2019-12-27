@@ -20,8 +20,8 @@ class User {
      * Create new User instance
      * @param {object} collection MongoDb users collection instance
      */
-    constructor(collection) {
-        this.collection = collection;
+    constructor(db) {
+        this.collection = db.collection('users');
 
         /**
          * 
