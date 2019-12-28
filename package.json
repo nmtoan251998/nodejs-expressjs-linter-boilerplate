@@ -7,7 +7,7 @@
     "linter:watch": "node node_modules/eslint-watch/bin/esw -w --fix -c ./.eslintrc.json",
     "dev:server": "nodemon ./src/index.js",
     "start": "concurrently -p [{name}] -n \"Server,Linter\" -c \"bgCyan.bold,bgRed.bold\" \"npm run dev:server\" \"npm run linter:watch\"",
-    "start-docker": "sudo docker-compose up",
+    "start-docker": "docker-compose up",
     "apidoc": "apidoc -i src/ -o docs/"
   },
   "keywords": [
@@ -24,7 +24,7 @@
   "author": "noat",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^3.0.7",
+    "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
     "date-fns": "^2.8.1",
