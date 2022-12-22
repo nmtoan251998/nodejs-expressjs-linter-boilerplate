@@ -32,7 +32,7 @@
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
     "http-status": "^1.4.2",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongodb": "^3.3.5",
     "morgan": "^1.9.1",
     "prettier": "^1.19.1"
